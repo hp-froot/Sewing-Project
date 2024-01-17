@@ -3,13 +3,13 @@ class Shirt_measurements:
         # defining measurements needed for shirts
         self.breast = breast
         self.ubl = ubl
-        # upper-body lenght from shoulder to belly button
+        # upper-body length from shoulder to belly button
         self.shoulder = shoulder
         self.arm = arm
         # arm circumference
         self.hip = hip
         self.sl = sl
-        # shirt lenght
+        # shirt length from shoulder to base
         self.slack = slack
         self.size = size
         # on average, what size is the user for shirts
@@ -66,19 +66,29 @@ class Simple_Shirt:
         return cleavage_back
 
     def simple_shirt(self):
-        self.shirt_lenght_front = self.shirt_measurements.sl - (
+        # length of the shirt front front - (1/2 shoulder + cleavage front)
+        self.shirt_length_front = self.shirt_measurements.sl - (
             ((1 / 2) * self.shirt_measurements.shoulder) + self.size_measurement_front()
         )
-        self.shirt_leght_back = self.shirt_measurements.sl - (
+        # length of the shirt back front - cleavage back
+        self.shirt_length_back = self.shirt_measurements.sl - (
             ((1 / 2) * self.shirt_measurements.shoulder) + self.size_measurement_back()
         )
+        # length of the shirt front back
+        self.shirt_length_front_f = 
+        # length of the shirt back back
+        # front cleavage is a curve between the y-axis (1/2 shoulder + 1cm) and the x-axis (1/2 shoulder + cleavage size)
+        # shoulder strap front
         self.width_front_up = self.shirt_measurements.shoulder - 1
+        # shoulder strap back
         self.width_back_up = (
             (1 / 4) * self.shirt_measurements.breast
         ) + self.shirt_measurements.slack
+        # 1/4 width of hip + 3cm
         self.width_front_down = (
             (1 / 4) * self.shirt_measurements.breast
         ) + self.shirt_measurements.slack
+        # 1/4 width of hip + 3cm
         self.width_back_down = (
             (1 / 4) * self.shirt_measurements.breast
         ) + self.shirt_measurements.slack
