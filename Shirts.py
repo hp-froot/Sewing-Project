@@ -1,5 +1,6 @@
 class Shirt_measurements:
     def measurements(self, breast, ubl, shoulder, arm, hip, sl, slack, size):
+        # defining measurements needed for shirts
         self.breast = breast
         self.ubl = ubl
         # upper-body lenght from shoulder to belly button
@@ -16,9 +17,12 @@ class Shirt_measurements:
 
 class Simple_Shirt:
     def __init__(self, shirt_measurements: Shirt_measurements):
+        # __init__ allows to start the class for each function, so I could add shirt_measurements to the class
+        # self is the instance of the class that I am calling, otherwise it will be confused
         self.shirt_measurements = shirt_measurements
 
     def shoulder_measurements(self):
+        # there is a drop from the shoulder measurements
         match self.shirt_measurements.shoulder:
             case range(5, 7):
                 drop = 1.5
@@ -33,6 +37,7 @@ class Simple_Shirt:
         return drop
 
     def size_measurement_front(self):
+        # cleavage is based on person's size, and changes if it is in the front vs. the back
         match self.shirt_measurements.size:
             case range(34, 41):
                 cleavage_front = 2
