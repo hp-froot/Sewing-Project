@@ -2,7 +2,7 @@ import math
 
 
 class Shirt_measurements:
-    def measurements(self, breast, ubl, shoulder, arm, hip, sl, slack, size):
+    def __init__(self, breast, ubl, shoulder, arm, hip, sl, slack, size):
         # defining measurements needed for shirts
         self.breast = breast
         self.ubl = ubl

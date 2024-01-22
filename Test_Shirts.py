@@ -1,6 +1,2 @@
 import pytest
-import Shirts
-
-
-class TestClass_Shirt:
-    ...
+from Shirts import *
