@@ -20,7 +20,7 @@ class Shirt_measurements:
 
 class Simple_Shirt:
     def __init__(self, shirt_measurements: Shirt_measurements):
-        # __init__ allows to start the class for each function, so I could add shirt_measurements to the class
+        # __init__ allows to start the class for each function, so I could add shirt_measurements to the instance of the class
         # self is the instance of the class that I am calling, otherwise it will be confused
         self.shirt_measurements = shirt_measurements
 
@@ -74,12 +74,12 @@ class Simple_Shirt:
             ((1 / 2) * self.shirt_measurements.shoulder) + self.size_measurement_front()
         )
         # length of the shirt back front - cleavage back
-        self.shirt_length_back = self.shirt_measurements.sl - (
-            ((1 / 2) * self.shirt_measurements.shoulder) + self.size_measurement_back()
+        self.shirt_length_back = (
+            self.shirt_measurements.sl - self.size_measurement_back()
         )
-        # length of the shirt front back - shoulder drop
-        self.shirt_length_front_f = (
-            self.shirt_measurements.sl - self.shoulder_measurements()
+        # length of the shirt front back - (1/2 arm + shoulder drop + 4cm)
+        self.shirt_length_front_f = self.shirt_measurements.sl - (
+            (1 / 2) * self.shirt_measurements.arm + self.shoulder_measurements() + 4
         )
         """
         # length of the shirt back back
