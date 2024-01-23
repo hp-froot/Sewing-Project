@@ -109,4 +109,4 @@ class Simple_Shirt:
             self.shirt_length_front_f,
         )
 
-    shirt_length_front, shirt_length_back, shirt_length_front_f = simple_shirt()
+    # shirt_length_front, shirt_length_back, shirt_length_front_f = simple_shirt()
