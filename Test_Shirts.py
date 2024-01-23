@@ -2,10 +2,7 @@ import pytest
 from Shirts import *
 
 def simple_shirt_test():
-    # length of the shirt front front - (1/2 shoulder + cleavage front)
-    assert shirt_length_front == self.shirt_measurements.sl - (
-            ((1 / 2) * self.shirt_measurements.shoulder) + self.size_measurement_front()
-        )
+    assert shirt_length_front(Simple_Shirt) == 53
         # length of the shirt back front - cleavage back
         self.shirt_length_back = self.shirt_measurements.sl - (
             ((1 / 2) * self.shirt_measurements.shoulder) + self.size_measurement_back()

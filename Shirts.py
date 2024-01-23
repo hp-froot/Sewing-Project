@@ -81,6 +81,7 @@ class Simple_Shirt:
         self.shirt_length_front_f = (
             self.shirt_measurements.sl - self.shoulder_measurements()
         )
+        """
         # length of the shirt back back
         # front cleavage is a curve between the y-axis (1/2 shoulder + 1cm) and the x-axis (1/2 shoulder + cleavage size)
         # shoulder strap front top = shoulder - 1cm
@@ -101,3 +102,11 @@ class Simple_Shirt:
         self.width_back_down = (
             (1 / 4) * self.shirt_measurements.breast
         ) + self.shirt_measurements.slack
+        """
+        return (
+            self.shirt_length_front,
+            self.shirt_length_back,
+            self.shirt_length_front_f,
+        )
+
+    shirt_length_front, shirt_length_back, shirt_length_front_f = simple_shirt()
