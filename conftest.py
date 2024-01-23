@@ -6,5 +6,5 @@ from Shirts import *
 
 @pytest.fixture
 def shirt_measurement_fixture():
-    Hannah = Shirt_measurements(117, 20, 112, 32, 110, 15, 2, 44)
-    return Hannah
+    size_forty = Shirt_measurements(90, 41, 12, 27, 96, 61, 2, 40)
+    return size_forty
