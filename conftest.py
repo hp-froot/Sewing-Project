@@ -5,6 +5,6 @@ from Shirts import *
 
 
 @pytest.fixture
-def shirt_measurement_fixture():
+def mannequin_size():
     size_forty = Shirt_measurements(90, 41, 12, 27, 96, 61, 2, 40)
     return size_forty
