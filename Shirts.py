@@ -5,33 +5,30 @@ from math import *
 @dataclass
 class Shirt_measurements:
     # Class for keeping track of the measurements needed for shirts
-    breast = float
+    breast: float
     # Upper-body length from shoulder to belly button
-    ubl = float
-    shoulder = float
+    ubl: float
+    shoulder: float
     # Arm circumference
-    arm = float
-    hip = float
+    arm: float
+    hip: float
     # Shirt length from shoulder to base of the desired size of the shirt
-    sl = float
-    # Slack for shirt, usually 2cm
-    slack = int
+    sl: float
     # Average size for shirts of the user
-    size = int
+    size: int
+    # Slack for shirt, usually 2cm
+    slack: int = 2
 
 
 class Simple_Shirt:
-    def __init__(self, shirt_measurements: Shirt_measurements):
+    def __init__(self, measurements: Shirt_measurements):
         # __init__ allows to start the class for each function, so I could add shirt_measurements to the instance of the class
         # self is the instance of the class that I am calling, otherwise it will be confused
-        self.shirt_measurements = shirt_measurements
-        import pdb
-
-        pdb.set_trace()
+        self.measurements = measurements
 
     def shoulder_measurements(self):
         # there is a drop from the shoulder measurements
-        match self.shirt_measurements.shoulder:
+        match self.measurements.shoulder:
             case range(5, 7):
                 drop = 1.5
             case range(6.1, 9):
@@ -46,7 +43,7 @@ class Simple_Shirt:
 
     def size_measurement_front(self):
         # cleavage is based on person's size, and changes if it is in the front vs. the back
-        match self.shirt_measurements.size:
+        match self.measurements.size:
             case range(34, 41):
                 cleavage_front = 2
             case range(42, 47):
@@ -60,7 +57,7 @@ class Simple_Shirt:
         return cleavage_front
 
     def size_measurement_back(self):
-        match self.shirt_measurements.size:
+        match self.measurements.size:
             case range(34, 41):
                 cleavage_back = 2
             case range(42, 47):
@@ -75,43 +72,18 @@ class Simple_Shirt:
 
     def simple_shirt(self):
         # length of the shirt front front - (1/2 shoulder + cleavage front)
-        self.shirt_length_front = self.shirt_measurements.sl - (
-            ((1 / 2) * self.shirt_measurements.shoulder) + self.size_measurement_front()
+        self.length_front = self.measurements.sl - (
+            ((1 / 2) * self.measurements.shoulder) + self.size_measurement_front()
         )
         # length of the shirt back front - cleavage back
-        self.shirt_length_back = (
-            self.shirt_measurements.sl - self.size_measurement_back()
-        )
+        self.length_back = self.measurements.sl - self.size_measurement_back()
         # length of the shirt front back - (1/2 arm + shoulder drop + 4cm)
-        self.shirt_length_front_f = self.shirt_measurements.sl - (
-            (1 / 2) * self.shirt_measurements.arm + self.shoulder_measurements() + 4
-        )
-        """
-        # length of the shirt back back
-        # front cleavage is a curve between the y-axis (1/2 shoulder + 1cm) and the x-axis (1/2 shoulder + cleavage size)
-        # shoulder strap front top = shoulder - 1cm
-        self.width_front_up_top = self.shirt_measurements.shoulder - 1
-        # shoulder strap front drop = pythagoras (c = square root of a^2 + b^2)
-        self.width_front_up_drop = math.sqrt(
-            (self.width_front_up_top**2) + (self.shoulder_measurements() ** 2)
-        )
-        # shoulder strap back
-        self.width_back_up = (
-            (1 / 4) * self.shirt_measurements.breast
-        ) + self.shirt_measurements.slack
-        # 1/4 width of hip + 3cm
-        self.width_front_down = (
-            (1 / 4) * self.shirt_measurements.breast
-        ) + self.shirt_measurements.slack
-        # 1/4 width of hip + 3cm
-        self.width_back_down = (
-            (1 / 4) * self.shirt_measurements.breast
-        ) + self.shirt_measurements.slack
-        """
-        return (
-            self.shirt_length_front,
-            self.shirt_length_back,
-            self.shirt_length_front_f,
+        self.length_front_b = self.measurements.sl - (
+            (1 / 2) * self.measurements.arm + self.shoulder_measurements() + 4
         )
 
-    # shirt_length_front, shirt_length_back, shirt_length_front_f = simple_shirt()
+        return (
+            self.length_front,
+            self.length_back,
+            self.length_front_b,
+        )
