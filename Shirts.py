@@ -1,21 +1,23 @@
-import math
+from dataclasses import dataclass
+from math import *
 
 
+@dataclass
 class Shirt_measurements:
-    def __init__(self, breast, ubl, shoulder, arm, hip, sl, slack, size):
-        # defining measurements needed for shirts
-        self.breast = breast
-        self.ubl = ubl
-        # upper-body length from shoulder to belly button
-        self.shoulder = shoulder
-        self.arm = arm
-        # arm circumference
-        self.hip = hip
-        self.sl = sl
-        # shirt length from shoulder to base
-        self.slack = slack
-        self.size = size
-        # on average, what size is the user for shirts
+    # Class for keeping track of the measurements needed for shirts
+    breast = float
+    # Upper-body length from shoulder to belly button
+    ubl = float
+    shoulder = float
+    # Arm circumference
+    arm = float
+    hip = float
+    # Shirt length from shoulder to base of the desired size of the shirt
+    sl = float
+    # Slack for shirt, usually 2cm
+    slack = int
+    # Average size for shirts of the user
+    size = int
 
 
 class Simple_Shirt:
@@ -23,6 +25,9 @@ class Simple_Shirt:
         # __init__ allows to start the class for each function, so I could add shirt_measurements to the instance of the class
         # self is the instance of the class that I am calling, otherwise it will be confused
         self.shirt_measurements = shirt_measurements
+        import pdb
+
+        pdb.set_trace()
 
     def shoulder_measurements(self):
         # there is a drop from the shoulder measurements

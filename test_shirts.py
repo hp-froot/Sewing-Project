@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from Shirts import *
 import pytest
 from conftest import *
@@ -7,7 +5,7 @@ from conftest import *
 simple_shirt_instance = Simple_Shirt(shirt_measurement_fixture)
 
 
-def simple_shirt_test():
+def test_simple_shirt():
     assert simple_shirt_instance.simple_shirt() == (
         53,
         59,
