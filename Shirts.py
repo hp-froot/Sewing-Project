@@ -28,17 +28,16 @@ class Simple_Shirt:
 
     def shoulder_measurements_drop_calculation(self):
         # there is a drop from the shoulder measurements
-        match self.measurements.shoulder:
-            case range(5, 7):
-                drop = 1.5
-            case range(6.1, 9):
-                drop = 2
-            case range(8.1, 10):
-                drop = 2.5
-            case range(9.1, 12):
-                drop = 3
-            case range(11.1, 21):
-                drop = 4
+        if self.measurements.shoulder in range(5, 7):
+            drop = 1.5
+        elif self.measurements.shoulder in range(6, 9):
+            drop = 2
+        elif self.measurements.shoulder in range(8, 10):
+            drop = 2.5
+        elif self.measurements.shoulder in range(9, 12):
+            drop = 3
+        elif self.measurements.shoulder in range(11, 21):
+            drop = 4
         return drop
 
     def size_measurement_front_cleavage_calculation(self):
@@ -73,13 +72,18 @@ class Simple_Shirt:
     def simple_shirt_calculation(self):
         # length of the shirt front front - (1/2 shoulder + cleavage front)
         self.length_front = self.measurements.sl - (
-            ((1 / 2) * self.measurements.shoulder) + self.size_measurement_front()
+            ((1 / 2) * self.measurements.shoulder)
+            + self.size_measurement_front_cleavage_calculation()
         )
         # length of the shirt back front - cleavage back
-        self.length_back = self.measurements.sl - self.size_measurement_back()
+        self.length_back = (
+            self.measurements.sl - self.size_measurement_back_cleavage_calculation()
+        )
         # length of the shirt front back - (1/2 arm + shoulder drop + 4cm)
         self.length_front_b = self.measurements.sl - (
-            (1 / 2) * self.measurements.arm + self.shoulder_measurements() + 4
+            (1 / 2) * self.measurements.arm
+            + self.shoulder_measurements_drop_calculation()
+            + 4
         )
 
         return (

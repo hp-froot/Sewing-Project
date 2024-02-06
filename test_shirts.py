@@ -4,7 +4,7 @@ from conftest import *
 
 
 def test_simple_shirt(simp_shirt: Simple_Shirt):
-    assert simp_shirt.simple_shirt() == (
+    assert simp_shirt.simple_shirt_calculation() == (
         53,
         59,
         39.5,
