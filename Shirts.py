@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from math import *
+import turtle
 
 
 @dataclass
@@ -18,6 +19,21 @@ class Shirt_measurements:
     size: int
     # Slack for shirt, usually 2cm
     slack: int = 2
+
+
+user = Shirt_measurements(
+    input("Enter measurements in cm - breast: "),
+    input("Upper-body length: "),
+    input("Shoulder: "),
+    input("Arm: "),
+    input("Hip: "),
+    input("Shirt length: "),
+    input("Size: "),
+    input("Slack: "),
+)
+
+window = turtle.getscreen()
+t = turtle.Turtle()
 
 
 class Simple_Shirt:
