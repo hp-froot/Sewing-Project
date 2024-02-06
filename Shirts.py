@@ -26,7 +26,7 @@ class Simple_Shirt:
         # self is the instance of the class that I am calling, otherwise it will be confused
         self.measurements = measurements
 
-    def shoulder_measurements(self):
+    def shoulder_measurements_drop_calculation(self):
         # there is a drop from the shoulder measurements
         match self.measurements.shoulder:
             case range(5, 7):
@@ -41,7 +41,7 @@ class Simple_Shirt:
                 drop = 4
         return drop
 
-    def size_measurement_front(self):
+    def size_measurement_front_cleavage_calculation(self):
         # cleavage is based on person's size, and changes if it is in the front vs. the back
         match self.measurements.size:
             case 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41:
@@ -56,7 +56,7 @@ class Simple_Shirt:
                 cleavage_front = 4
         return cleavage_front
 
-    def size_measurement_back(self):
+    def size_measurement_back_cleavage_calculation(self):
         match self.measurements.size:
             case 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41:
                 cleavage_back = 2
@@ -70,7 +70,7 @@ class Simple_Shirt:
                 cleavage_back = 4
         return cleavage_back
 
-    def simple_shirt(self):
+    def simple_shirt_calculation(self):
         # length of the shirt front front - (1/2 shoulder + cleavage front)
         self.length_front = self.measurements.sl - (
             ((1 / 2) * self.measurements.shoulder) + self.size_measurement_front()
