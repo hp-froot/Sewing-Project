@@ -44,29 +44,29 @@ class Simple_Shirt:
     def size_measurement_front(self):
         # cleavage is based on person's size, and changes if it is in the front vs. the back
         match self.measurements.size:
-            case range(34, 41):
+            case 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41:
                 cleavage_front = 2
-            case range(42, 47):
+            case 42 | 43 | 44 | 45 | 46 | 47:
                 cleavage_front = 2.5
-            case range(48, 53):
+            case 48 | 49 | 50 | 51 | 52 | 53:
                 cleavage_front = 3
-            case range(54, 59):
+            case 54 | 55 | 56 | 57 | 58 | 59:
                 cleavage_front = 3.5
-            case range(60, 65):
+            case 60 | 61 | 62 | 63 | 64 | 65:
                 cleavage_front = 4
         return cleavage_front
 
     def size_measurement_back(self):
         match self.measurements.size:
-            case range(34, 41):
+            case 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41:
                 cleavage_back = 2
-            case range(42, 47):
+            case 42 | 43 | 44 | 45 | 46 | 47:
                 cleavage_back = 2.5
-            case range(48, 53):
+            case 48 | 49 | 50 | 51 | 52 | 53:
                 cleavage_back = 3
-            case range(54, 59):
+            case 54 | 55 | 56 | 57 | 58 | 59:
                 cleavage_back = 3.5
-            case range(60, 65):
+            case 60 | 61 | 62 | 63 | 64 | 65:
                 cleavage_back = 4
         return cleavage_back
 
