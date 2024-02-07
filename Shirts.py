@@ -32,9 +32,6 @@ user = Shirt_measurements(
     input("Slack: "),
 )
 
-window = turtle.getscreen()
-t = turtle.Turtle()
-
 
 class Simple_Shirt:
     def __init__(self, measurements: Shirt_measurements):
@@ -94,31 +91,50 @@ class Simple_Shirt:
                 + self.size_measurement_front_cleavage_calculation()
             )
         ) * 10
+
         # width of the shirt front = 1/4 hip + 3cm
         self.width_front = (((1 / 4) * self.measurements.hip) + 3) * 10
+
         # length of the shirt front back - (1/2 arm + shoulder drop + 4cm)
         self.length_front_b = (
             self.measurements.sl
             - (
                 (1 / 2) * self.measurements.arm
-                + self.shoulder_measurements_drop_calculation()
+                + self.shoulder_measurements_drop_calculation
                 + 4
             )
         ) * 10
 
-        return (
-            self.length_front,
-            self.length_front_b,
-        )
+        # mid-shirt width = (1/4 hip) - ((1/2 shoulder) + 1 + shoulder - 1)
+        self.mid_shirt_width = ((1 / 4) * self.measurements.hip) - (
+            ((1 / 2) * self.measurements.shoulder) + 1 + self.measurements.shoulder - 1
+        ) * 10
+
+        # mid-shirt length = 1/2 arm + shoulder drop + 4cm
+        self.mid_shirt_length = (
+            ((1 / 2) * self.measurements.shoulder)
+            + self.shoulder_measurements_drop_calculation
+            + 4
+        ) * 10
+
+        # cleavage straight line = 1/2 shoulder + 1
+        self.shirt_cleavage = (((1 / 2) * self.measurements.shoulder) + 1) * 10
+
+        # cleavage straight line perpendicular = 1/2 shoulder + cleavage
+        self.shirt_cleavage_perpendicular = (
+            ((1 / 2) * self.measurements.shoulder)
+            + self.size_measurement_front_cleavage_calculation
+        ) * 10
 
     def simple_shirt_calculation_angle(self):
-        # pythagorean theorem for the width of the shirt to go up at an angle = 180 - tan-1((sl - shoulder drop - 1/2arm)/3)
+        # pythagorean theorem for the width of the shirt to go up at an angle = 180 - tan-1((sl - shoulder drop - 1/2arm - 4)/3)
         width_angle = 180 - math.degrees(
             math.atan(
                 (
                     self.measurements.sl
                     - self.shoulder_measurements_drop_calculation
                     - ((1 / 2) * self.measurements.arm)
+                    - 4
                 )
                 / 3
             )
@@ -131,6 +147,28 @@ class Simple_Shirt:
             )
         )
 
+    def hypotenuse_calculation(self):
+        # hypotenuse of the width/length of the shirt
+        hypotenuse_w_l = (
+            math.hypot(
+                (
+                    self.measurements.sl
+                    - self.shoulder_measurements_drop_calculation
+                    - ((1 / 2) * self.measurements.arm)
+                    - 4
+                ),
+                3,
+            )
+        ) * 10
 
-class Simple_Shirt_Directions:
-    pass
+        # hypotenuse of the shoulder drop
+        hypotenuse_shoulder = (
+            math.hypot(
+                (self.measurements.shoulder - 1),
+                self.shoulder_measurements_drop_calculation,
+            )
+        ) * 10
+
+
+window = turtle.getscreen()
+t = turtle.Turtle()
