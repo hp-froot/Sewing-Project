@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from math import *
+import math
 import turtle
 
 
@@ -85,25 +85,52 @@ class Simple_Shirt:
                 cleavage_back = 4
         return cleavage_back
 
-    def simple_shirt_calculation(self):
+    def simple_shirt_calculation_straight(self):
         # length of the shirt front front - (1/2 shoulder + cleavage front)
-        self.length_front = self.measurements.sl - (
-            ((1 / 2) * self.measurements.shoulder)
-            + self.size_measurement_front_cleavage_calculation()
-        )
-        # length of the shirt back front - cleavage back
-        self.length_back = (
-            self.measurements.sl - self.size_measurement_back_cleavage_calculation()
-        )
+        self.length_front = (
+            self.measurements.sl
+            - (
+                ((1 / 2) * self.measurements.shoulder)
+                + self.size_measurement_front_cleavage_calculation()
+            )
+        ) * 10
+        # width of the shirt front = 1/4 hip + 3cm
+        self.width_front = (((1 / 4) * self.measurements.hip) + 3) * 10
         # length of the shirt front back - (1/2 arm + shoulder drop + 4cm)
-        self.length_front_b = self.measurements.sl - (
-            (1 / 2) * self.measurements.arm
-            + self.shoulder_measurements_drop_calculation()
-            + 4
-        )
+        self.length_front_b = (
+            self.measurements.sl
+            - (
+                (1 / 2) * self.measurements.arm
+                + self.shoulder_measurements_drop_calculation()
+                + 4
+            )
+        ) * 10
 
         return (
             self.length_front,
-            self.length_back,
             self.length_front_b,
         )
+
+    def simple_shirt_calculation_angle(self):
+        # pythagorean theorem for the width of the shirt to go up at an angle = 180 - tan-1((sl - shoulder drop - 1/2arm)/3)
+        width_angle = 180 - math.degrees(
+            math.atan(
+                (
+                    self.measurements.sl
+                    - self.shoulder_measurements_drop_calculation
+                    - ((1 / 2) * self.measurements.arm)
+                )
+                / 3
+            )
+        )
+        # pythagorean theorem for the shoulder of the shirt = tan-1((shoulder - 1)/shoulder drop)
+        shoulder_angle = math.degrees(
+            math.atan(
+                (self.measurements.shoulder - 1)
+                / self.shoulder_measurements_drop_calculation
+            )
+        )
+
+
+class Simple_Shirt_Directions:
+    pass
