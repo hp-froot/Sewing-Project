@@ -21,18 +21,6 @@ class Shirt_measurements:
     slack: int = 2
 
 
-user = Shirt_measurements(
-    input("Enter measurements in cm - breast: "),
-    input("Upper-body length: "),
-    input("Shoulder: "),
-    input("Arm: "),
-    input("Hip: "),
-    input("Shirt length: "),
-    input("Size: "),
-    input("Slack: "),
-)
-
-
 class Simple_Shirt:
     def __init__(self, measurements: Shirt_measurements):
         # __init__ allows to start the class for each function, so I could add shirt_measurements to the instance of the class
@@ -128,7 +116,18 @@ class Simple_Shirt:
 
     def simple_shirt_calculation_angle(self):
         # pythagorean theorem for the width of the shirt to go up at an angle = 180 - tan-1((sl - shoulder drop - 1/2arm - 4)/3)
-        self.width_angle = 180 - math.degrees(
+        self.width_angle_base = 180 - math.degrees(
+            math.atan(
+                (
+                    self.measurements.sl
+                    - self.shoulder_measurements_drop_calculation
+                    - ((1 / 2) * self.measurements.arm)
+                    - 4
+                )
+                / 3
+            )
+        )
+        self.width_angle_top = math.degrees(
             math.atan(
                 (
                     self.measurements.sl
@@ -146,6 +145,7 @@ class Simple_Shirt:
                 / self.shoulder_measurements_drop_calculation
             )
         )
+        self.shoulder_angle_top = 90 - self.shoulder_angle
 
     def hypotenuse_calculation(self):
         # hypotenuse of the width/length of the shirt
@@ -180,11 +180,54 @@ class Simple_Shirt_Turtle:
         t.forward(self.simple_shirt.length_front)
         t.left(90)
         t.forward(self.simple_shirt.width_front)
-        t.left(self.simple_shirt.width_angle)
+        t.left(self.simple_shirt.width_angle_base)
+        t.forward(self.simple_shirt.hypotenuse_w_l)
+        t.left(self.simple_shirt.width_angle_top)
+        t.forward(self.simple_shirt.mid_shirt_width)
+        t.right(90)
+        n = 0
+        while n <= self.simple_shirt.mid_shirt_length:
+            t.pencolor("red")
+            t.forward(15)
+            t.penup()
+            t.forward(15)
+            t.pendown()
+            n += 30
+        t.pencolor("black")
+        t.left(self.simple_shirt.shoulder_angle)
+        t.forward(self.simple_shirt.hypotenuse_shoulder)
+        t.left(self.simple_shirt.shoulder_angle_top)
+        x = 0
+        while x <= self.simple_shirt.shirt_cleavage:
+            t.pencolor("red")
+            t.forward(15)
+            t.penup()
+            t.forward(15)
+            t.pendown()
+            x += 30
+        t.left(90)
+        w = 0
+        while w <= self.simple_shirt.shirt_cleavage_perpendicular:
+            t.forward(15)
+            t.penup()
+            t.forward(15)
+            t.pendown()
+            x += 30
 
 
 def main():
-    pass
+    user = Shirt_measurements(
+        input("Enter measurements in cm - breast: "),
+        input("Upper-body length: "),
+        input("Shoulder: "),
+        input("Arm: "),
+        input("Hip: "),
+        input("Shirt length: "),
+        input("Size: "),
+        input("Slack: "),
+    )
+    Simple_Shirt()
+    Simple_Shirt_Turtle()
 
 
 if __name__ == "__main__":
