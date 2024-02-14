@@ -128,7 +128,7 @@ class Simple_Shirt:
 
     def simple_shirt_calculation_angle(self):
         # pythagorean theorem for the width of the shirt to go up at an angle = 180 - tan-1((sl - shoulder drop - 1/2arm - 4)/3)
-        width_angle = 180 - math.degrees(
+        self.width_angle = 180 - math.degrees(
             math.atan(
                 (
                     self.measurements.sl
@@ -140,7 +140,7 @@ class Simple_Shirt:
             )
         )
         # pythagorean theorem for the shoulder of the shirt = tan-1((shoulder - 1)/shoulder drop)
-        shoulder_angle = math.degrees(
+        self.shoulder_angle = math.degrees(
             math.atan(
                 (self.measurements.shoulder - 1)
                 / self.shoulder_measurements_drop_calculation
@@ -149,7 +149,7 @@ class Simple_Shirt:
 
     def hypotenuse_calculation(self):
         # hypotenuse of the width/length of the shirt
-        hypotenuse_w_l = (
+        self.hypotenuse_w_l = (
             math.hypot(
                 (
                     self.measurements.sl
@@ -162,7 +162,7 @@ class Simple_Shirt:
         ) * 10
 
         # hypotenuse of the shoulder drop
-        hypotenuse_shoulder = (
+        self.hypotenuse_shoulder = (
             math.hypot(
                 (self.measurements.shoulder - 1),
                 self.shoulder_measurements_drop_calculation,
@@ -170,5 +170,22 @@ class Simple_Shirt:
         ) * 10
 
 
-window = turtle.getscreen()
-t = turtle.Turtle()
+class Simple_Shirt_Turtle:
+    def __init__(self, simple_shirt: Simple_Shirt):
+        self.simple_shirt = simple_shirt
+
+    def simple_shirt_drawing(self):
+        window = turtle.getscreen()
+        t = turtle.Turtle()
+        t.forward(self.simple_shirt.length_front)
+        t.left(90)
+        t.forward(self.simple_shirt.width_front)
+        t.left(self.simple_shirt.width_angle)
+
+
+def main():
+    pass
+
+
+if __name__ == "__main__":
+    main()
