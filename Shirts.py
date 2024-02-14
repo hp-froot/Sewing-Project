@@ -114,6 +114,16 @@ class Simple_Shirt:
             + self.size_measurement_front_cleavage_calculation
         ) * 10
 
+        return (
+            self.length_front,
+            self.width_front,
+            self.length_front_b,
+            self.mid_shirt_width,
+            self.mid_shirt_length,
+            self.shirt_cleavage,
+            self.shirt_cleavage_perpendicular,
+        )
+
     def simple_shirt_calculation_angle(self):
         # pythagorean theorem for the width of the shirt to go up at an angle = 180 - tan-1((sl - shoulder drop - 1/2arm - 4)/3)
         self.width_angle_base = 180 - math.degrees(
@@ -147,6 +157,13 @@ class Simple_Shirt:
         )
         self.shoulder_angle_top = 90 - self.shoulder_angle
 
+        return (
+            self.width_angle_base,
+            self.width_angle_top,
+            self.shoulder_angle,
+            self.shoulder_angle_top,
+        )
+
     def hypotenuse_calculation(self):
         # hypotenuse of the width/length of the shirt
         self.hypotenuse_w_l = (
@@ -168,6 +185,8 @@ class Simple_Shirt:
                 self.shoulder_measurements_drop_calculation,
             )
         ) * 10
+
+        return (self.hypotenuse_w_l, self.hypotenuse_shoulder)
 
 
 class Simple_Shirt_Turtle:
@@ -226,8 +245,8 @@ def main():
         input("Size: "),
         input("Slack: "),
     )
-    Simple_Shirt()
-    Simple_Shirt_Turtle()
+    Simple_Shirt(user)
+    Simple_Shirt_Turtle(Simple_Shirt)
 
 
 if __name__ == "__main__":
