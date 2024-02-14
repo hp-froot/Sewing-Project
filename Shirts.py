@@ -29,21 +29,21 @@ class Simple_Shirt:
 
     def shoulder_measurements_drop_calculation(self):
         # there is a drop from the shoulder measurements
-        if self.measurements.shoulder in range(5, 7):
+        if int(self.measurements.shoulder) in range(5, 7):
             drop = 1.5
-        elif self.measurements.shoulder in range(6, 9):
+        elif int(self.measurements.shoulder) in range(6, 9):
             drop = 2
-        elif self.measurements.shoulder in range(8, 10):
+        elif int(self.measurements.shoulder) in range(8, 10):
             drop = 2.5
-        elif self.measurements.shoulder in range(9, 12):
+        elif int(self.measurements.shoulder) in range(9, 12):
             drop = 3
-        elif self.measurements.shoulder in range(11, 21):
+        elif int(self.measurements.shoulder) in range(11, 21):
             drop = 4
         return drop
 
     def size_measurement_front_cleavage_calculation(self):
         # cleavage is based on person's size, and changes if it is in the front vs. the back
-        match self.measurements.size:
+        match int(self.measurements.size):
             case 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41:
                 cleavage_front = 2
             case 42 | 43 | 44 | 45 | 46 | 47:
@@ -57,7 +57,7 @@ class Simple_Shirt:
         return cleavage_front
 
     def size_measurement_back_cleavage_calculation(self):
-        match self.measurements.size:
+        match int(self.measurements.size):
             case 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41:
                 cleavage_back = 2
             case 42 | 43 | 44 | 45 | 46 | 47:
@@ -73,45 +73,46 @@ class Simple_Shirt:
     def simple_shirt_calculation_straight(self):
         # length of the shirt front front - (1/2 shoulder + cleavage front)
         self.length_front = (
-            self.measurements.sl
+            float(self.measurements.sl)
             - (
-                ((1 / 2) * self.measurements.shoulder)
+                ((1 / 2) * float(self.measurements.shoulder))
                 + self.size_measurement_front_cleavage_calculation()
             )
         ) * 10
 
         # width of the shirt front = 1/4 hip + 3cm
-        self.width_front = (((1 / 4) * self.measurements.hip) + 3) * 10
+        self.width_front = (((1 / 4) * float(self.measurements.hip)) + 3) * 10
 
         # length of the shirt front back - (1/2 arm + shoulder drop + 4cm)
         self.length_front_b = (
-            self.measurements.sl
+            float(self.measurements.sl)
             - (
-                (1 / 2) * self.measurements.arm
-                + self.shoulder_measurements_drop_calculation
+                (1 / 2) * float(self.measurements.arm)
+                + self.shoulder_measurements_drop_calculation()
                 + 4
             )
         ) * 10
 
-        # mid-shirt width = (1/4 hip) - ((1/2 shoulder) + 1 + shoulder - 1)
-        self.mid_shirt_width = ((1 / 4) * self.measurements.hip) - (
-            ((1 / 2) * self.measurements.shoulder) + 1 + self.measurements.shoulder - 1
+        # mid-shirt width = (1/4 hip) - ((1/2 shoulder) + shoulder)
+        self.mid_shirt_width = ((1 / 4) * float(self.measurements.hip)) - (
+            ((1 / 2) * float(self.measurements.shoulder))
+            + float(self.measurements.shoulder)
         ) * 10
 
         # mid-shirt length = 1/2 arm + shoulder drop + 4cm
         self.mid_shirt_length = (
-            ((1 / 2) * self.measurements.shoulder)
-            + self.shoulder_measurements_drop_calculation
+            ((1 / 2) * float(self.measurements.shoulder))
+            + self.shoulder_measurements_drop_calculation()
             + 4
         ) * 10
 
         # cleavage straight line = 1/2 shoulder + 1
-        self.shirt_cleavage = (((1 / 2) * self.measurements.shoulder) + 1) * 10
+        self.shirt_cleavage = (((1 / 2) * float(self.measurements.shoulder)) + 1) * 10
 
         # cleavage straight line perpendicular = 1/2 shoulder + cleavage
         self.shirt_cleavage_perpendicular = (
-            ((1 / 2) * self.measurements.shoulder)
-            + self.size_measurement_front_cleavage_calculation
+            ((1 / 2) * float(self.measurements.shoulder))
+            + self.size_measurement_front_cleavage_calculation()
         ) * 10
 
         return (
@@ -129,33 +130,34 @@ class Simple_Shirt:
         self.width_angle_base = 180 - math.degrees(
             math.atan(
                 (
-                    self.measurements.sl
-                    - self.shoulder_measurements_drop_calculation
-                    - ((1 / 2) * self.measurements.arm)
+                    float(self.measurements.sl)
+                    - self.shoulder_measurements_drop_calculation()
+                    - ((1 / 2) * float(self.measurements.arm))
                     - 4
                 )
                 / 3
             )
         )
-        self.width_angle_top = math.degrees(
+        self.width_angle_top = 360 - math.degrees(
             math.atan(
                 (
-                    self.measurements.sl
-                    - self.shoulder_measurements_drop_calculation
-                    - ((1 / 2) * self.measurements.arm)
+                    float(self.measurements.sl)
+                    - self.shoulder_measurements_drop_calculation()
+                    - ((1 / 2) * float(self.measurements.arm))
                     - 4
                 )
                 / 3
             )
         )
+
         # pythagorean theorem for the shoulder of the shirt = tan-1((shoulder - 1)/shoulder drop)
         self.shoulder_angle = math.degrees(
             math.atan(
-                (self.measurements.shoulder - 1)
-                / self.shoulder_measurements_drop_calculation
+                (float(self.measurements.shoulder) - 1)
+                / self.shoulder_measurements_drop_calculation()
             )
         )
-        self.shoulder_angle_top = 90 - self.shoulder_angle
+        self.shoulder_angle_top = 90 - float(self.shoulder_angle)
 
         return (
             self.width_angle_base,
@@ -169,9 +171,9 @@ class Simple_Shirt:
         self.hypotenuse_w_l = (
             math.hypot(
                 (
-                    self.measurements.sl
-                    - self.shoulder_measurements_drop_calculation
-                    - ((1 / 2) * self.measurements.arm)
+                    float(self.measurements.sl)
+                    - self.shoulder_measurements_drop_calculation()
+                    - ((1 / 2) * float(self.measurements.arm))
                     - 4
                 ),
                 3,
@@ -181,8 +183,8 @@ class Simple_Shirt:
         # hypotenuse of the shoulder drop
         self.hypotenuse_shoulder = (
             math.hypot(
-                (self.measurements.shoulder - 1),
-                self.shoulder_measurements_drop_calculation,
+                (float(self.measurements.shoulder) - 1),
+                self.shoulder_measurements_drop_calculation(),
             )
         ) * 10
 
@@ -194,7 +196,6 @@ class Simple_Shirt_Turtle:
         self.simple_shirt = simple_shirt
 
     def simple_shirt_drawing(self):
-        window = turtle.getscreen()
         t = turtle.Turtle()
         t.forward(self.simple_shirt.length_front)
         t.left(90)
@@ -231,10 +232,14 @@ class Simple_Shirt_Turtle:
             t.penup()
             t.forward(15)
             t.pendown()
-            x += 30
+            w += 30
+
+
+window = turtle.getscreen()
 
 
 def main():
+    print("Time to enter size")
     user = Shirt_measurements(
         input("Enter measurements in cm - breast: "),
         input("Upper-body length: "),
@@ -245,9 +250,29 @@ def main():
         input("Size: "),
         input("Slack: "),
     )
-    Simple_Shirt(user)
-    Simple_Shirt_Turtle(Simple_Shirt)
+    print("After entering size")
+    user_simple_shirt = Simple_Shirt(user)
+    print("After creating an instance of the simple_shirt class")
+    user_simple_shirt.shoulder_measurements_drop_calculation()
+    print("After calculating shoulder drop")
+    user_simple_shirt.size_measurement_front_cleavage_calculation()
+    print("After calculating cleavage front")
+    user_simple_shirt.size_measurement_back_cleavage_calculation()
+    print("After calculating cleavage back")
+    user_simple_shirt.simple_shirt_calculation_straight()
+    print("After calculating straight")
+    user_simple_shirt.simple_shirt_calculation_angle()
+    print("After calculating angle")
+    user_simple_shirt.hypotenuse_calculation()
+    print("After calculating hypotenuse")
+
+    drawing_user = Simple_Shirt_Turtle(user_simple_shirt)
+    print("After creating an instance of simple_shirt_turtle class")
+    drawing_user.simple_shirt_drawing()
+    print("After calling the drawing")
 
 
 if __name__ == "__main__":
     main()
+
+turtle.exitonclick()
