@@ -138,7 +138,7 @@ class Simple_Shirt:
                 / 3
             )
         )
-        self.width_angle_top = 360 - math.degrees(
+        self.width_angle_top = (-1) * math.degrees(
             math.atan(
                 (
                     float(self.measurements.sl)
@@ -239,7 +239,6 @@ window = turtle.getscreen()
 
 
 def main():
-    print("Time to enter size")
     user = Shirt_measurements(
         input("Enter measurements in cm - breast: "),
         input("Upper-body length: "),
@@ -250,26 +249,17 @@ def main():
         input("Size: "),
         input("Slack: "),
     )
-    print("After entering size")
+
     user_simple_shirt = Simple_Shirt(user)
-    print("After creating an instance of the simple_shirt class")
     user_simple_shirt.shoulder_measurements_drop_calculation()
-    print("After calculating shoulder drop")
     user_simple_shirt.size_measurement_front_cleavage_calculation()
-    print("After calculating cleavage front")
     user_simple_shirt.size_measurement_back_cleavage_calculation()
-    print("After calculating cleavage back")
     user_simple_shirt.simple_shirt_calculation_straight()
-    print("After calculating straight")
     user_simple_shirt.simple_shirt_calculation_angle()
-    print("After calculating angle")
     user_simple_shirt.hypotenuse_calculation()
-    print("After calculating hypotenuse")
 
     drawing_user = Simple_Shirt_Turtle(user_simple_shirt)
-    print("After creating an instance of simple_shirt_turtle class")
     drawing_user.simple_shirt_drawing()
-    print("After calling the drawing")
 
 
 if __name__ == "__main__":
