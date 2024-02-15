@@ -94,14 +94,17 @@ class Simple_Shirt:
         ) * 10
 
         # mid-shirt width = (1/4 hip) - ((1/2 shoulder) + shoulder)
-        self.mid_shirt_width = ((1 / 4) * float(self.measurements.hip)) - (
-            ((1 / 2) * float(self.measurements.shoulder))
-            + float(self.measurements.shoulder)
+        self.mid_shirt_width = (
+            (float(self.measurements.hip) / 4)
+            - (
+                (float(self.measurements.shoulder) / 2)
+                + float(self.measurements.shoulder)
+            )
         ) * 10
 
         # mid-shirt length = 1/2 arm + shoulder drop + 4cm
         self.mid_shirt_length = (
-            ((1 / 2) * float(self.measurements.shoulder))
+            (float(self.measurements.arm) / 2)
             + self.shoulder_measurements_drop_calculation()
             + 4
         ) * 10
@@ -138,7 +141,7 @@ class Simple_Shirt:
                 / 3
             )
         )
-        self.width_angle_top = (-1) * math.degrees(
+        self.width_angle_top = math.degrees(
             math.atan(
                 (
                     float(self.measurements.sl)
@@ -202,6 +205,7 @@ class Simple_Shirt_Turtle:
         t.forward(self.simple_shirt.width_front)
         t.left(self.simple_shirt.width_angle_base)
         t.forward(self.simple_shirt.hypotenuse_w_l)
+
         t.left(self.simple_shirt.width_angle_top)
         t.forward(self.simple_shirt.mid_shirt_width)
         t.right(90)
